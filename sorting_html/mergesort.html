@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Merge Sort<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+void mergesort(int *arr, int low, int high);
+void merge(int *arr, int low, int mid, int high);
+
+
+//TC -&gt; Best, Average and Worst Case -&gt; O(nlogn)
+void mergesort(int *arr, int low, int high)
+{
+    int mid;
+    if(low == high)
+    {
+        return;
+    }
+    else
+    {
+        mid = (low+high)/2;
+        mergesort(arr,low,mid);
+        mergesort(arr,mid+1,high);
+        merge(arr,low,mid,high);
+    }
+}
+
+void merge(int *arr, int low, int mid, int high)
+{
+    int size = (high-low)+1;
+    int temp[size];
+    int k = 0; // indexing for our temp array.
+    int left = low;
+    int right = mid+1;
+    while(left&lt;=mid &amp;&amp; right &lt;= high)
+    {
+        if(arr[left]&lt;= arr[right])
+        {
+            temp[k] = arr[left];
+            left++;
+            k++;
+        }
+        else //arr[right] is smaller so we add this to the temp array
+        {
+            temp[k] = arr[right];
+            right++;
+            k++;
+        }
+    }
+    //coming out of this loop means, that one side has been exhausted, so we just add the other half directly to the temp array.
+    while(left&lt;=mid)
+    {
+        temp[k] = arr[left];
+        left++;
+        k++;
+    }
+
+    while(right&lt;=high)
+    {
+        temp[k] = arr[right];
+        right++;
+        k++;
+    }
+    //because indepth of recursion, low changes so for the original we put ther sorted array from low to high but our
+    //temp array always starts from zero.
+    for(int i=low; i&lt;=high; i++)
+    {
+        arr[i] = temp[i-low];
+    }
+}
+
+
+void display(int *arr, int n)
+{
+    printf(&quot;The array is : &quot;);
+    for(int i=0; i&lt;n;i++)
+    {
+        printf(&quot;%d &quot;,arr[i]);
+    }
+    printf(&quot;\n&quot;);
+}
+
+int main()
+{
+    printf(&quot;Enter size of the array : &quot;);
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    int arr[n];
+    printf(&quot;Enter %d elements into the array  :&quot;,n);
+    for(int i=0; i&lt;n; i++)
+    {
+        scanf(&quot;%d&quot;,&amp;arr[i]);
+    }
+    printf(&quot;Before Sorting : &quot;);
+    display(arr,n);
+    printf(&quot;After Sorting : &quot;);
+    mergesort(arr,0,n-1);
+    display(arr,n);
+    return 0;
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

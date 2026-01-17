@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Binary Search Tree<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+//TC -&gt; BEST CASE/AVERAGE CASE  -&gt; O(logn) , WORSE CASE -&gt; UNBALANCED/SKEWED BST -&gt; O(n)
+struct node{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+
+struct node *create(int value)
+{
+    struct node *newNode;
+    newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory full. Exiting.. &quot;);
+        exit(0);
+    }
+    newNode-&gt;data = value;
+    newNode-&gt;left = NULL;
+    newNode-&gt;right = NULL;
+    printf(&quot;Node Inserted.&quot;);
+    return newNode;
+}
+
+struct node *insert(struct node *root, int value)
+{
+    if(root == NULL)
+    {
+        root = create(value);
+    }
+    else if(value&lt;root-&gt;data)
+    {
+        root-&gt;left = insert(root-&gt;left,value);
+    }
+    else if(value&gt;root-&gt;data)
+    {
+        root-&gt;right = insert(root-&gt;right,value);
+    }
+    return root;
+}
+
+
+void inorder(struct node *root)
+{
+    if(root == NULL)
+    {
+        return ;
+    }
+    else
+    {
+        inorder(root-&gt;left);
+        printf(&quot;%d &quot;,root-&gt;data);
+        inorder(root-&gt;right);
+    }
+}
+
+
+int search(struct node *root, int key)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+    else if(root-&gt;data == key)
+    {
+        return 1;
+    }
+    else if (key &gt; root-&gt;data)
+    {
+        return search(root-&gt;right,key);
+    }
+    else if (key &lt; root-&gt;data)
+    {
+        return search (root-&gt;left, key);
+    }
+}
+
+
+struct node *delete(struct node *root, int value)
+{
+    if(root == NULL)
+    {
+        printf(&quot;Element not found.&quot;);
+        return NULL;
+    }
+    else if(value &lt; root-&gt;data)
+    {
+        root-&gt;left = delete(root-&gt;left, value);
+    }
+    else if(value &gt; root-&gt;data)
+    {
+        root-&gt;right = delete(root-&gt;right, value);
+    }
+    else {    //Element found
+            if(root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL)   //Case 1 : No Child
+            {
+                printf(&quot;Node deleted&quot;);
+                free(root);
+                return NULL;
+            }   
+            else if ( root-&gt;left != NULL &amp;&amp; root-&gt;right == NULL)   //Case 2 : One child
+            {
+                struct node *temp = root-&gt;left;
+                printf(&quot;Node deleted&quot;);
+                free(root);
+                return temp;
+            }
+
+            else if (root-&gt;right != NULL &amp;&amp; root-&gt;left == NULL)
+            {
+                struct node *temp = root-&gt;right;
+                printf(&quot;Node deleted&quot;);
+                free(root);
+                return temp;
+            }
+
+            else //case 3 - Both children. The deleted root will be replaced by its inorder successor.
+            {
+                struct node *temp = root-&gt;right;
+                while(temp-&gt;left != NULL)
+                {
+                    temp = temp-&gt;left;
+                }
+                root-&gt;data = temp-&gt;data;
+                root-&gt;right = delete(root-&gt;right, temp-&gt;data);
+            }
+        }
+        return root;
+}
+
+
+void preorder(struct node *root)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    else
+    {
+        printf(&quot;%d &quot;,root-&gt;data);
+        preorder(root-&gt;left);
+        preorder(root-&gt;right);
+    }
+}
+
+
+void postorder(struct node *root)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    else
+    {
+         postorder(root-&gt;left);
+         postorder(root-&gt;right);
+         printf(&quot;%d &quot;,root-&gt;data);        
+    }
+}
+
+int main()
+{
+    struct node *root = NULL;
+    
+    int value,key,s,found;
+    while(1)
+    {
+        printf(&quot;\nMENU:1-Insert\n2-Search\n3-Delete\n4-Inorder\n5-Preorder\n6-Postorder\n7-Exit : &quot;);
+        scanf(&quot;%d&quot;,&amp;s);
+        switch(s)
+        {
+            case 1 : printf(&quot;Enter the value to insert : &quot;);
+                     scanf(&quot;%d&quot;,&amp;value);
+                     root = insert(root,value);
+                     break;
+
+            case 2 : printf(&quot;Enter the element to search : &quot;);
+                     scanf(&quot;%d&quot;,&amp;key);
+                     found = search(root,key);
+                    if(found == 1)
+                    {
+                        printf(&quot;Element found in BST&quot;);
+                    }
+                    else
+                    {
+                        printf(&quot;Element not found in BST&quot;);
+                    }
+                    break;
+
+            case 3 : printf(&quot;Enter the value to delete : &quot;);
+                     scanf(&quot;%d&quot;,&amp;value);
+                     root = delete(root,value);
+                     break;
+                
+
+            case 4 : printf(&quot;INORDER -&gt; &quot;); 
+                    inorder(root);
+                     break;
+
+                  case 5 :printf(&quot;PREORDER -&gt; &quot;); 
+                preorder(root);
+                     break;
+
+            case 6 : printf(&quot;POSTORDER -&gt; &quot;);
+                     postorder(root);
+                     break;
+
+            case 7 : exit(0);
+        }
+    }
+   return 0; 
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

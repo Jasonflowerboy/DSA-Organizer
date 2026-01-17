@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Linear Search<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+
+int linearsearch(int *arr, int n, int key)
+{
+    for(int i=0;i&lt;n;i++)
+    {
+        if(arr[i] == key)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int main(void)
+{
+    int n;
+    printf(&quot;Enter size of the array : &quot;);
+    scanf(&quot;%d&quot;,&amp;n);
+    int arr[n];
+    printf(&quot;Enter %d elements into the array : &quot;,n);
+    for(int i=0;i&lt;n;i++)
+    {
+        scanf(&quot;%d&quot;,&amp;arr[i]);
+    }
+    int key;
+    printf(&quot;Enter element to search : &quot;);
+    scanf(&quot;%d&quot;,&amp;key);
+    int pos = linearsearch(arr,n,key);
+    if(pos == -1)
+    {
+        printf(&quot;Element not found.&quot;);
+    }
+    else {
+        printf(&quot;Element found in index %d&quot;,pos);
+    }
+    return 0;
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

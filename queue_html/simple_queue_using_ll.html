@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Simple queue using LinkedList<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+struct queue{
+    int data;
+    struct queue *next;
+};
+
+struct queue *front = NULL;
+struct queue *rear = NULL;
+
+
+void enque(int value)
+{
+    struct queue *newNode;
+    newNode = (struct queue*)malloc(sizeof(struct queue));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory overflow. Free some space&quot;);
+        return;
+    }
+    newNode-&gt;data = value;
+    newNode-&gt;next = NULL;
+    if(front == NULL &amp;&amp; rear == NULL)
+    {   
+        front = newNode;
+        rear = newNode;
+         printf(&quot;%d inserted.&quot;,rear-&gt;data);
+    }
+    else
+    {
+        rear-&gt;next = newNode;
+        rear = newNode;
+         printf(&quot;%d inserted.&quot;,rear-&gt;data);
+    }
+}
+
+void deque()
+{
+    if(front == NULL)
+    {
+        printf(&quot;The queue is already empty.&quot;);
+    }
+    else if (front == rear)
+    {
+        struct queue* temp = front;
+        printf(&quot;%d dequeued&quot;,front-&gt;data);
+        free(temp);
+        front = NULL;
+        rear = NULL;
+    }
+    else
+    {
+        struct queue *temp;
+        temp = front;
+        front = front-&gt;next;
+        printf(&quot;%d dequeued&quot;,temp-&gt;data);
+        free(temp);
+    }
+}
+
+
+void peek()
+{
+    if(front == NULL)
+    {
+        printf(&quot;Queue is empty&quot;);
+    }
+    else
+    {
+        printf(&quot;FRONT = %d\n&quot;,front-&gt;data);
+        printf(&quot;REAR = %d&quot;,rear-&gt;data);
+    }
+}
+
+
+void display()
+{
+    if(front == NULL)
+    {
+        printf(&quot;Queue is empty&quot;);
+    }
+    else 
+    {
+        struct queue *temp;
+        temp = front;
+        printf(&quot;FRONT -&gt; &quot;);
+        while(temp!=NULL)
+        {
+            printf(&quot;%d &quot;,temp-&gt;data);
+            temp = temp-&gt;next;
+        }
+        printf(&quot;&lt;- REAR&quot;);
+    }
+}
+
+int main()
+{
+    int s,value;
+    while(1)
+    {
+        printf(&quot;\nMENU:1-Enque\n2-Deque\n3-Peek\n4-Display\n5-Exit : &quot;);
+        scanf(&quot;%d&quot;,&amp;s);
+        switch(s)
+        {
+            case 1 : printf(&quot;Enter the value to enque : &quot;);
+                    scanf(&quot;%d&quot;,&amp;value);
+                    enque(value);
+                    break;
+
+            case 2 : deque();
+                     break;
+
+            case 3 : peek();
+                     break;
+
+            case 4 : display();
+                     break;
+
+            case 5 : exit(0);
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

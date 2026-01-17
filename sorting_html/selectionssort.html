@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Selection Sort<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+//TC -&gt; ALL CASES O(n^2)
+
+void selectionsort(int *arr, int n)
+{
+    int i,j,small,temp;
+    for(int i = 0; i&lt;=n-2; i ++)
+    {
+        small = i;
+        for(int j = i+1;j&lt;=n-1;j++)
+        {
+            if(arr[j]&lt;arr[small])
+            {
+                small = j;
+            }
+        }
+        if(i != small)
+        {
+            temp = arr[i];
+            arr[i] = arr[small];
+            arr[small] = temp;
+        }
+    }
+}
+
+void display(int *arr, int n)
+{
+    printf(&quot;The array is : &quot;);
+    for(int i=0; i&lt;n;i++)
+    {
+        printf(&quot;%d &quot;,arr[i]);
+    }
+    printf(&quot;\n&quot;);
+}
+
+int main()
+{
+    printf(&quot;Enter size of the array : &quot;);
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    int arr[n];
+    printf(&quot;Enter %d elements into the array  :&quot;,n);
+    for(int i=0; i&lt;n; i++)
+    {
+        scanf(&quot;%d&quot;,&amp;arr[i]);
+    }
+    printf(&quot;Before Sorting : &quot;);
+    display(arr,n);
+    printf(&quot;After Sorting : &quot;);
+    selectionsort(arr,n);
+    display(arr,n);
+    return 0;
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

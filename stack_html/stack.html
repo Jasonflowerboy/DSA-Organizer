@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason's DSA Code</title>
+    <link rel = "stylesheet" href = "stack-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <header>
+        <div class = "left-section">
+            <p>Speciality in : C, DSA, HTML, CSS </p>
+        </div>
+        <div class = "middle-section">
+<h1 class = "heading">STACK</h1>
+        </div>
+        <div class = "right-section">
+           <a class = "social-buttons tag" href = "https://github.com/Jasonflowerboy" style = "color:white; padding:20px;">
+            <i class="fa-brands fa-github"></i>  GitHub
+            </a>
+            <a class = "social-buttons2 tag" href = "https://www.linkedin.com/in/jasonmani-rai-0782b132a/" style = "color:white; padding:20px;">
+            <i class="fa-brands fa-linkedin"></i>  LinkedIn
+            </a>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class = "main-link-grid">
+                <a class = "topic-div" href = "stack_using_array.html">
+                    <div class = "code-div">
+                       <pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+#define MAXSIZE 5
+int TOP = -1;
+int stack[MAXSIZE];
+
+void push(int value)
+{
+    if(TOP==MAXSIZE-1)
+    {
+        printf(&quot;STACK IS FULL.&quot;);
+    }
+    else
+    {
+        TOP++;
+        stack[TOP] = value;
+        printf(&quot;%d pushed.&quot;,stack[TOP]);
+    }
+}
+
+void pop()
+{
+    if(TOP == -1)
+    {
+        printf(&quot;Stack is already empty.&quot;);
+    }
+    else
+    {
+        printf(&quot;%d popped.&quot;,stack[TOP]);
+        TOP --; 
+    }
+}
+
+void peek()
+{
+    if(TOP == -1)
+    {
+        printf(&quot;Stack is empty.&quot;);
+    }
+    else
+    {
+        printf(&quot;TOP = %d&quot;,stack[TOP]);
+    }
+}
+
+                </code></pre>
+                    </div>
+                    <div class = "text-div">
+                        <h2 class = "text">Stack using Array</h2>
+                    </div>
+                </a>                
+       
+        <a class = "topic-div" href = "stack_using_ll.html">
+                    <div class = "code-div">
+                       <pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+struct stack{
+    int data;
+    struct stack *next;
+};
+
+struct stack *TOP = NULL;
+
+
+void push(int value)
+{
+    struct stack *newNode;
+    newNode = (struct stack*)malloc(sizeof(struct stack));
+    if(newNode == NULL)
+    {
+        printf(&quot;Stack Full.&quot;);
+        return;
+    }
+    newNode-&gt;data = value;
+    newNode-&gt;next = TOP;
+    TOP = newNode;
+    printf(&quot;%d pushed.&quot;,TOP-&gt;data);
+}
+
+void pop()
+{
+    if(TOP == NULL)
+    {
+        printf(&quot;Stack is already empty.&quot;);
+    }
+    else
+    {
+        struct stack *temp;
+        temp = TOP;
+        TOP = TOP-&gt;next;
+        printf(&quot;%d popped.&quot;,temp-&gt;data);
+        free(temp);
+    }
+}
+
+
+void peek()
+{
+    if(TOP == NULL)
+    {
+        printf(&quot;Stack is empty&quot;);
+    }
+    else
+    {
+        printf(&quot;TOP = %d&quot;,TOP-&gt;data);
+    }
+}
+
+
+void display()
+{
+    if(TOP == NULL)
+    {
+        printf(&quot;Stack is empty.&quot;);
+    }
+  
+                </code></pre>
+                    </div>
+                    <div class = "text-div">
+                        <h2 class = "text">Stack using LinkedList</h2>
+                    </div>
+                </a>                   
+         </div> 
+        </section>
+    </main>
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+</body>
+</html>

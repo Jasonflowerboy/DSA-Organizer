@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason's DSA Code</title>
+    <link rel = "stylesheet" href = "searching-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <header>
+        <div class = "left-section">
+            <p>Speciality in : C, DSA, HTML, CSS </p>
+        </div>
+        <div class = "middle-section">
+<h1 class = "heading">SEARCHING</h1>
+        </div>
+        <div class = "right-section">
+           <a class = "social-buttons tag" href = "https://github.com/Jasonflowerboy" style = "color:white; padding:20px;">
+            <i class="fa-brands fa-github"></i>  GitHub
+            </a>
+            <a class = "social-buttons2 tag" href = "https://www.linkedin.com/in/jasonmani-rai-0782b132a/" style = "color:white; padding:20px;">
+            <i class="fa-brands fa-linkedin"></i>  LinkedIn
+            </a>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class = "main-link-grid">
+                <a class = "topic-div" href = "linearsearch.html">
+                    <div class = "code-div">
+                       <pre><code class="language-c">
+#include&lt;stdio.h&gt;
+
+int linearsearch(int *arr, int n, int key)
+{
+    for(int i=0;i&lt;n;i++)
+    {
+        if(arr[i] == key)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int main(void)
+{
+    int n;
+    printf(&quot;Enter size of the array : &quot;);
+    scanf(&quot;%d&quot;,&amp;n);
+    int arr[n];
+    printf(&quot;Enter %d elements into the array : &quot;,n);
+    for(int i=0;i&lt;n;i++)
+    {
+        scanf(&quot;%d&quot;,&amp;arr[i]);
+    }
+    int key;
+    printf(&quot;Enter element to search : &quot;);
+    scanf(&quot;%d&quot;,&amp;key);
+    int pos = linearsearch(arr,n,key);
+    if(pos == -1)
+    {
+        printf(&quot;Element not found.&quot;);
+    }
+    else {
+        printf(&quot;Element found in index %d&quot;,pos);
+    }
+    return 0;
+}
+
+                </code></pre>
+                    </div>
+                    <div class = "text-div">
+                        <h2 class = "text">Linear Search</h2>
+                    </div>
+                </a>                
+       
+           <a class = "topic-div" href = "binarysearch.html">
+                    <div class = "code-div">
+                       <pre><code class="language-c">
+#include&lt;stdio.h&gt;
+
+int binarysearch(int *arr, int n, int key)
+{
+    int low = 0;
+    int high = n-1;
+    int mid;
+    while(low&lt;=high)
+    {
+        mid = (low+high)/2;
+        if(arr[mid] == key)
+        {
+            return mid; // found
+        }
+        else if (arr[mid] &lt; key) //serach on the right side (greater side) then
+        {
+            low = mid +1;
+        }
+        else if (arr[mid] &gt; key)  //search on the left side (smaller side)
+        {
+            high = mid -1;
+        }
+    }   
+    return -1;
+}
+
+int main(void)
+{
+    int n;
+    printf(&quot;Enter size of the array : &quot;);
+    scanf(&quot;%d&quot;,&amp;n);
+    int arr[n];
+    printf(&quot;Enter %d elements into the array : (in sorted order : )&quot;,n);
+    for(int i=0;i&lt;n;i++)
+    {
+        scanf(&quot;%d&quot;,&amp;arr[i]);
+    }
+    int key;
+    printf(&quot;Enter element to search : &quot;);
+    scanf(&quot;%d&quot;,&amp;key);
+    int pos = binarysearch(arr,n,key);
+    if(pos == -1)
+    {
+        printf(&quot;Element not found.&quot;);
+    }
+    else {
+        printf(&quot;Element found in index %d&quot;,pos);
+    }
+    return 0;
+}
+
+                </code></pre>
+                    </div>
+                    <div class = "text-div">
+                        <h2 class = "text">Binary Search</h2>
+                    </div>
+                </a>    
+       
+                      
+         </div> 
+        </section>
+    </main>
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+</body>
+</html>

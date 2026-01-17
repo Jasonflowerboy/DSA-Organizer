@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Infix to Postfix using Stack<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;ctype.h&gt;
+
+#define MAXSIZE 100
+
+char stack[MAXSIZE];
+int top = -1;
+
+
+void push(char ch)     //push infix character into the stack -&gt; TOP ++ , stack[TOP] = x;
+{    
+    stack[++top] = ch;
+}
+
+char pop ()  //pop the top character from the stack to postfix expression -&gt; return stack[top]; top --; we usually make postfix[k++] = pop();
+{
+    return stack[top--];
+}
+
+int precedence(char ch)
+{
+    if (ch == '^' || ch == '$')
+    {
+        return 3;
+    }
+    else if (ch == '*' || ch == '/')
+    {
+        return 2;
+    }
+    else if (ch == '+' || ch == '-')
+    {
+        return 1;
+    }
+    else // for parenthesis
+    {
+        return 0;
+    }
+}
+
+int main(void)
+{
+    char infix[MAXSIZE];
+    char postfix[MAXSIZE];
+    int i = 0; // indexing for the infix
+    int k = 0; //indexing for the postfix.
+    printf(&quot;Enter the infix expression : &quot;);
+    scanf(&quot;%s&quot;,infix);
+    char ch;
+    while((ch=infix[i++]) != '\0') // ch is infix[i] so current infix character which is then i++, we check it until we meet the NULL character.
+    {   //my ch is operand, we directly pop into postfix
+        if(isalnum(ch))  //if current character is alphabet or number so an operabd.
+        {
+            postfix[k++] = ch; //postfix[k] = current character, then k++
+        }
+        else if(ch == '(')
+        {
+            push(ch);
+        }
+        else if (ch == ')')
+        {
+            while(stack[top] != '(') //until we meet the '(', we keep popping the top into the posfix, 
+            {
+                postfix[k++] = pop();
+                //pop fn will do the top --
+            }
+            pop(); //popping the '(', pop function won't to return to anyone but will do top -- 
+        }
+        else //opertator is found
+        {
+            while( top != -1 &amp;&amp; precedence(stack[top]) &gt;= precedence(ch)) //if the stack isn't empty and the top operator has higher or equal precedence
+            {                                                       //as the incoming operator, then we need to pop these operators first and then push the new operator
+                postfix[k++] = pop();                     //pop function will automatically update the top.
+            }
+            push(ch);
+        }
+    }
+    while(top!=-1) //after we go through the infix expression some character still maybe left in the stack, we pop them from the top one by one until top is -1.
+    {
+        postfix[k++] = pop();
+    }
+    postfix[k] = '\0' ; //after everything is set we end a NULL character in the postfix character array to mark the end of the string.
+
+    printf(&quot;The postfix expression is %s&quot;,postfix);
+    return 0;
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

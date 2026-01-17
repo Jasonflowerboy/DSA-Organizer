@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doubly Linked List</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Doubly Linked List<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+
+struct node{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+
+struct node *create(struct node *head, int num)
+{
+    struct node *newNode, *tail = head;
+    int value;
+    for(int i=1;i&lt;=num;i++)
+    {
+         newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory full. Exiting&quot;);
+        exit(0);
+    }
+    printf(&quot;Enter the value for node %d &quot;,i);
+    scanf(&quot;%d&quot;,&amp;value);
+    newNode-&gt;data = value;
+    newNode-&gt;next = NULL;
+    if(head == NULL)
+    {
+        head = tail = newNode;
+        newNode-&gt;prev = NULL;
+    }
+    else
+    {
+        tail-&gt;next = newNode;
+        newNode-&gt;prev = tail;
+        tail = newNode;
+    }
+    printf(&quot;Node %d Inserted&quot;,i);
+    }
+   return head;
+}
+
+
+struct node *insert_beg(struct node *head)
+{
+    int value;
+    struct node *newNode;
+    newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory Full. Exiting..&quot;);
+        exit(0);
+    }
+
+    printf(&quot;Enter the value to insert : &quot;);
+    scanf(&quot;%d&quot;,&amp;value);
+    newNode-&gt;data = value;
+    newNode-&gt;prev = NULL;
+    if(head == NULL)
+    {
+        newNode-&gt;next = NULL;
+        head = newNode;
+    }
+
+    else
+    {
+        newNode-&gt;next = head;
+        head-&gt;prev = newNode;
+        head = newNode;
+    }
+    printf(&quot;Node Inserted&quot;);
+    return head;
+}
+
+struct node *insert_end(struct node *head)
+{
+    int value;
+    struct node *newNode;
+    newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory Full. Exiting..&quot;);
+        exit(0);
+    }
+    printf(&quot;Enter the value to insert : &quot;);
+    scanf(&quot;%d&quot;,&amp;value);
+    newNode-&gt;data = value;
+    newNode-&gt;next = NULL;
+    if(head == NULL)
+    {
+        newNode-&gt;prev = NULL;
+        head = newNode;
+    }
+    else
+    {
+         struct node *temp;
+    temp = head;
+    while(temp-&gt;next != NULL)
+    {
+        temp = temp-&gt;next;
+    }
+    temp-&gt;next = newNode;
+    newNode-&gt;prev = temp;
+    }
+   printf(&quot;Node Inserted.&quot;);
+   return head;
+}
+
+
+struct node *delete_beg(struct node *head)
+{
+    if(head == NULL)
+    {
+        printf(&quot;The LinkedList is already empty.&quot;);
+    }
+    else if(head-&gt;next == NULL)
+    {
+        printf(&quot;Node deleted&quot;);
+        free(head);
+        head = NULL;
+    }
+    else
+    {
+        struct node *temp = head;
+        head = head-&gt;next;
+        printf(&quot;Node deleted&quot;);
+        free(temp);
+        head-&gt;prev = NULL;
+    }
+    return head;
+}
+
+struct node *delete_end(struct node *head)
+{
+    if (head == NULL)
+    {
+        printf(&quot;The LinkedList is already empty&quot;);
+    }
+    else if(head-&gt;next == NULL)
+    {
+        printf(&quot;Node deleted&quot;);
+        free(head);
+        head = NULL;
+    }
+    else
+    {
+        struct node *temp;
+        temp = head;
+        while(temp-&gt;next != NULL)
+        {
+            temp = temp-&gt;next;
+        }
+        printf(&quot;Node deleted&quot;);
+        temp-&gt;prev-&gt;next = NULL; //Temp's prev means 2nd last node, go there and its next make it NULL.
+        free(temp);
+    }
+    return head;
+}
+
+
+void display(struct node *head)
+{
+    if(head == NULL)
+    {
+        printf(&quot;The LinkedList is empty&quot;);
+    }
+    else
+    {
+        struct node *temp = head;
+        printf(&quot; NULL &quot;);
+        while(temp != NULL)
+        {
+            printf(&quot;&lt;- %d -&gt;&quot;,temp-&gt;data);
+            temp = temp-&gt;next;
+        }
+        printf(&quot;NULL&quot;);
+    }
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

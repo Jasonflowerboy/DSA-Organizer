@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason's DSA Code</title>
+    <link rel = "stylesheet" href = "BST-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <header>
+        <div class = "left-section">
+            <p>Speciality in : C, DSA, HTML, CSS </p>
+        </div>
+        <div class = "middle-section">
+<h1 class = "heading">BINARY SEARCH TREE</h1>
+        </div>
+        <div class = "right-section">
+           <a class = "social-buttons tag" href = "https://github.com/Jasonflowerboy" style = "color:white; padding:20px;">
+            <i class="fa-brands fa-github"></i>  GitHub
+            </a>
+            <a class = "social-buttons2 tag" href = "https://www.linkedin.com/in/jasonmani-rai-0782b132a/" style = "color:white; padding:20px;">
+            <i class="fa-brands fa-linkedin"></i>  LinkedIn
+            </a>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class = "main-link-grid">
+                <a class = "topic-div" href = "BSTcode.html">
+                    <div class = "code-div">
+                       <pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+//TC -&gt; BEST CASE/AVERAGE CASE  -&gt; O(logn) , WORSE CASE -&gt; UNBALANCED/SKEWED BST -&gt; O(n)
+struct node{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+
+struct node *create(int value)
+{
+    struct node *newNode;
+    newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory full. Exiting.. &quot;);
+        exit(0);
+    }
+    newNode-&gt;data = value;
+    newNode-&gt;left = NULL;
+    newNode-&gt;right = NULL;
+    printf(&quot;Node Inserted.&quot;);
+    return newNode;
+}
+
+struct node *insert(struct node *root, int value)
+{
+    if(root == NULL)
+    {
+        root = create(value);
+    }
+    else if(value&lt;root-&gt;data)
+    {
+        root-&gt;left = insert(root-&gt;left,value);
+    }
+    else if(value&gt;root-&gt;data)
+    {
+        root-&gt;right = insert(root-&gt;right,value);
+    }
+    return root;
+}
+
+
+void inorder(struct node *root)
+{
+    if(root == NULL)
+    {
+        return ;
+    }
+    else
+    {
+        inorder(root-&gt;left);
+        printf(&quot;%d &quot;,root-&gt;data);
+        inorder(root-&gt;right);
+    }
+}
+
+
+                </code></pre>
+                    </div>
+                    <div class = "text-div">
+                        <h2 class = "text">BINARY SEARCH TREE</h2>
+                    </div>
+                </a>                
+       
+       
+                      
+         </div> 
+        </section>
+    </main>
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasonflowerboy's DSA SHEET</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Tower of Hanoi<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+
+void TOH(int n, int S, int A, int D)
+{
+    if(n&gt;0)
+    {         /*3 S A D
+                2 S D A
+                1 S A D              I I I
+                                          X
+                                          Y
+                                          Z 
+                
+                                                                            */                                                                  
+        TOH(n-1,S,D,A);
+        printf(&quot;Move Disk %d from Rod %d to Rod %d\n&quot;,n,S,D);
+        TOH(n-1,A,S,D);  //1 D S A -&gt;  1 D to A 
+                           // 2 A S D 
+                        
+                           //1 S A D
+                           //1 from S to D
+    }
+}
+
+int main(void)
+{
+    int S,A,D,n;
+    printf(&quot;Enter the number of disks : &quot;);
+    scanf(&quot;%d&quot;,&amp;n);
+    printf(&quot;We have Three Rods. 1, 2 and 3.&quot;);
+    printf(&quot;Choose the Source Rod : &quot;);
+    scanf(&quot;%d&quot;,&amp;S);
+    printf(&quot;Choose the Destination Rod : &quot;);
+    scanf(&quot;%d&quot;,&amp;D);
+    A = 6-(S+D);
+    TOH(n,S,A,D);
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Circular Linked List</title>
+
+  <!-- Prism Theme -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eaeaea;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    pre {
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Circular Linked List<span style = "font-size: 0.7rem; color: #eaeaea96;"> ----- &copy; jasonflowerboy</span> </h1>
+  </header>
+
+  <main>
+
+<pre><code class="language-c">
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+
+struct node{
+    int data;
+    struct node *next;
+};
+
+struct node *create(struct node * head, int n)
+{
+    int value;
+    struct node *newNode;
+    struct node *tail = head;
+    for(int i=1; i&lt;=n; i++)
+    {
+        newNode = (struct node*)malloc(sizeof(struct node));
+        if(newNode == NULL)
+        {
+            printf(&quot;Memory full. Exiting&quot;);
+            exit(0);
+        }
+
+        printf(&quot;Enter the value of node %d: &quot;,i);
+        scanf(&quot;%d&quot;,&amp;value);
+        newNode -&gt;data = value;
+        if(head == NULL)
+        {
+            head = tail = newNode;
+        }
+        else
+        {
+            tail-&gt;next = newNode;
+            tail = newNode;
+        }
+        newNode-&gt;next = head;
+        printf(&quot;Node %d created\n&quot;,i);
+    }
+    return head;
+}
+
+
+struct node *insert_beg(struct node *head)
+{
+    struct node *newNode;
+    int value;
+    newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory is full. Exiting..&quot;);
+        exit(0);
+    }
+    printf(&quot;Enter the value to insert : &quot;);
+    scanf(&quot;%d&quot;,&amp;value);
+    newNode-&gt;data = value;
+    if(head == NULL)
+    {
+        head = newNode;
+        newNode-&gt;next = head;
+        printf(&quot;Node inserted.&quot;);
+    }
+    else
+    {
+        struct node *temp;
+        temp = head;
+        while(temp-&gt;next!=head)
+        {
+            temp=temp-&gt;next;
+        }
+        temp-&gt;next = newNode;
+        newNode-&gt;next = head;
+        head = newNode;
+         printf(&quot;Node inserted.&quot;);
+    }
+    return head;
+}
+
+struct node *insert_end(struct node *head)
+{
+    struct node *newNode;
+    int value;
+    newNode = (struct node*)malloc(sizeof(struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory full. Exiting..&quot;);
+        exit(0);
+    }
+    printf(&quot;Enter the value to insert : &quot;);
+    scanf(&quot;%d&quot;,&amp;value);
+    newNode-&gt;data = value;
+    if(head == NULL)
+    {
+        head = newNode;
+        newNode-&gt;next = head;
+    }
+    else
+    {
+        struct node *temp = head;
+        while(temp-&gt;next != head)
+        {
+            temp = temp-&gt;next;
+        }
+        temp-&gt;next = newNode;
+        newNode-&gt;next = head;
+    }
+    printf(&quot;Node Inserted&quot;);
+    return head;
+}
+
+
+struct node *insert_pos(struct node *head, int pos)
+{
+    struct node *newNode;
+    int value;
+    newNode = (struct node*)malloc(sizeof (struct node));
+    if(newNode == NULL)
+    {
+        printf(&quot;Memory full. Exiting..&quot;);
+        exit(0);
+    }
+    printf(&quot;Enter the value to insert : &quot;);
+    scanf(&quot;%d&quot;,&amp;value);
+    newNode-&gt;data = value;
+    if(pos == 1 || head == NULL)
+    {
+        if(head!=NULL)
+        {
+            struct node *temp = head;
+            while(temp-&gt;next !=head)
+            {
+                temp = temp-&gt;next;
+            }
+            temp-&gt;next = newNode;
+            newNode-&gt;next = head;
+            head = newNode;
+        }
+        else //head is NULL
+        {
+            head = newNode;
+            newNode-&gt;next = head;
+        }
+    }
+    else
+    {
+        struct node *temp = head;
+        for(int i=1; i&lt;pos-1 &amp;&amp; temp-&gt;next != head; i++)
+        {
+            temp = temp-&gt;next;
+        }
+        newNode-&gt;next = temp-&gt;next;
+        temp-&gt;next = newNode;
+    }
+    printf(&quot;Node inserted&quot;);
+    return head;
+}
+
+
+struct node *delete_beg(struct node *head)
+{
+    if(head == NULL)
+    {
+        printf(&quot;The LinkedList is already empty&quot;);
+    }
+    else if(head-&gt;next == head)
+    {
+        printf(&quot;Node deleted&quot;);
+        free(head);
+        head = NULL;
+    }
+    else
+    {
+        struct node *tail, *temp;
+        tail = head;
+    while(tail-&gt;next != head)
+    {
+        tail = tail-&gt;next;
+    }
+    temp = head;
+    head = head-&gt;next;
+    tail-&gt;next = head;
+    printf(&quot;Node deleted&quot;);
+    free(temp);
+    }
+    return head;
+}
+
+
+struct node *delete_end(struct node *head)
+{
+    if(head == NULL)
+    {
+        printf(&quot;The LinkedList is already empty.&quot;);
+    }
+    else if(head-&gt;next == head)
+    {
+        printf(&quot;Node deleted&quot;);
+        free(head);
+        head = NULL;
+    }
+    else
+    {
+        struct node *prev, *temp;
+        temp = head;
+        prev = NULL;
+        while(temp-&gt;next != head)
+        {
+            prev = temp;
+            temp = temp-&gt;next;
+        }
+        printf(&quot;Node deleted&quot;);
+        free(temp);
+        prev-&gt;next = head;
+    }
+    return head;
+}
+
+struct node *delete_pos(struct node *head, int pos)
+{
+    if(head == NULL)
+    {
+        printf(&quot;The LinkedList is already empty&quot;);
+    }
+    else if( pos == 1 &amp;&amp; head-&gt;next == head )
+    {
+        printf(&quot;Node deleted&quot;);
+        free(head);
+        head = NULL;
+    }
+    else if (pos == 1)
+    {
+        struct node *tail, *temp;
+        tail = head;
+        while(tail-&gt;next != head)
+        {
+            tail = tail-&gt;next;
+        }
+        temp = head;
+        head = head-&gt;next;
+        tail-&gt;next = head;
+        printf(&quot;Node deleted&quot;);
+        free(temp);
+    }
+    else
+    {
+        struct node *prev = NULL, *temp = head;
+        for(int i =1; i&lt;pos &amp;&amp; temp-&gt;next != head; i++)
+        {
+                prev = temp;
+                temp = temp-&gt;next;
+        }
+        prev-&gt;next = temp-&gt;next;
+        printf(&quot;Node deleted&quot;);
+        free(temp);
+    }
+    return head;
+}
+
+void display(struct node *head)
+{
+    if(head == NULL)
+    {
+        printf(&quot;The LinkedList is empty.&quot;);
+    }
+    else
+    {
+        struct node *temp = head;
+        printf(&quot;THE LINKEDLIST IS -&gt; &quot;);
+        do{
+            printf(&quot;%d -&gt; &quot;,temp-&gt;data);
+            temp = temp-&gt;next;
+        }while(temp!=head);
+        printf(&quot;HEAD&quot;);
+    }
+}
+
+int main()
+{
+    struct node *head = NULL;
+    int value,pos,n,s;
+    while(1)
+    {
+        printf(&quot;\nMENU:1-Create a list\n2-Insert_Beg\n3-Insert_End\n4-Insert_Pos\n5-Delete_Beg\n6-Delete_End\n7Delete_Pos\n8-Display\n9-Exit : &quot;);
+        scanf(&quot;%d&quot;,&amp;s);
+        switch(s)
+        {
+            case 1 : printf(&quot;Enter the number of nodes to create : &quot;);
+                     scanf(&quot;%d&quot;,&amp;n);
+                     head = create(head,n);
+                     break;
+
+
+            case 2 : head = insert_beg(head);
+                        break;
+
+            case 3 : head = insert_end(head);
+                     break;
+
+            case 4 :   printf(&quot;Enter the position : &quot;);
+                     scanf(&quot;%d&quot;,&amp;pos);
+                     head = insert_pos(head,pos);
+                       break;
+
+            case 5 : head = delete_beg(head);
+                     break;
+            
+            case 6 : head = delete_end(head);
+                     break;
+
+            case 7 : printf(&quot;Enter the position : &quot;);
+                     scanf(&quot;%d&quot;,&amp;pos);
+                     head = delete_pos(head, pos);
+                     break;
+
+            case 8 : display(head);
+                     break;
+
+
+            case 9 : exit(0);
+
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+  </main>
+
+  <!-- Prism Core -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <!-- C Language -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+
+</body>
+</html>
